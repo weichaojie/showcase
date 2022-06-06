@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BrainCo</title>
+    <script>src="/echarts/echarts.min.js"</script>
+    <script>src="/echarts/china.js"</script>
+    <script>src="/echarts/jquery-1.11.1.min.js"</script>
+
+</head>
+<body>
+
+<div id="main" style="width: 900px;height:700px;"> </div>
+
+<sript type="text/javascript">
+
+    var myChart = echarts.init(document.getElementById('main'));
+    var dataList = []；
+    option={
+        tooltip:{
+        triggerOn: "click",
+        formatter: function(e,t,n){
+        return '.5' == e.value ? e.name + ": 销售总量"：}
+            };
+
+    $.ajax({
+        url:"/query",
+        dataType:"json",
+        success: function(data){
+            for(let i in data){
+                dataList[i]=data[i];
+            }
+
+            myChart.setOption({
+                series:[
+                {
+                    name: "销售数量"，
+                    type: "map",
+                    geoIndex: 0,
+                    data:dataList
+                }
+                ]
+            })
+            }
+        });
+
+    // 使用数据图和指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+
+</sript>
+
+</body>
+</html>
